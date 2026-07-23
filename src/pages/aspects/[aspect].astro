@@ -1,0 +1,84 @@
+---
+import type { GetStaticPaths } from "astro";
+import { Icon } from "astro-icon/components";
+import PostCard from "@/components/layout/PostCard.astro";
+import { aspectById, isAspectId, visibleAspects } from "@/data/aspects";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { getSortedPosts } from "@/utils/content-utils";
+import { createInk } from "@/utils/ink";
+import { getPostUrlBySlug } from "@/utils/url-utils";
+
+export const getStaticPaths = (async () => {
+	return visibleAspects.map((aspect) => ({
+		params: { aspect: aspect.id },
+		props: { aspect: aspect.id },
+	}));
+}) satisfies GetStaticPaths;
+
+const aspectParam = Astro.props.aspect;
+const aspect = isAspectId(aspectParam)
+	? aspectById[aspectParam]
+	: aspectById.lantern;
+const aspectInk = createInk([aspect.id], aspect.id);
+const posts = (await getSortedPosts()).filter((post) => {
+	const weights = post.data.advancedAspectWeights || post.data.aspectWeights;
+	return (
+		post.data.primaryAspect === aspect.id ||
+		post.data.aspects.includes(aspect.id) ||
+		(weights?.[aspect.id] ?? 0) > 0
+	);
+});
+
+let delay = 0;
+const interval = 50;
+---
+
+<MainGridLayout
+	title={aspect.zh}
+	description={aspect.meaning}
+	themeHue={aspectInk.hue}
+	themeInk={aspectInk.color}
+	themeInkRgb={aspectInk.rgbValue}
+	themeInkText={aspectInk.textColor}
+>
+	<section class="mansus-aspect-page card-base p-5 md:p-7" style={aspectInk.style}>
+		<div class="mansus-section-head">
+			<div class="mansus-aspect-detail-title">
+				<img src={aspect.icon} width="52" height="52" alt="" />
+				<h2>{aspect.zh}</h2>
+			</div>
+		</div>
+		<div class="mansus-aspect-current">
+			<p>{aspect.meaning}</p>
+		</div>
+	</section>
+
+	<div class="flex flex-col gap-4 mt-4">
+		{posts.length > 0 ? (
+			posts.map((entry, index) => (
+				<PostCard
+					entry={entry}
+					title={entry.data.title}
+					tags={entry.data.tags}
+					category={entry.data.category}
+					published={entry.data.published}
+					updated={entry.data.updated}
+					url={getPostUrlBySlug(entry.id)}
+					image={entry.data.image}
+					description={entry.data.description}
+					draft={entry.data.draft}
+					pinned={entry.data.pinned}
+					password={!!entry.data.password}
+					loading={index < 2 ? "eager" : "lazy"}
+					class:list="onload-animation post-card-item"
+					style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}
+				/>
+			))
+		) : (
+			<div class="card-base p-8 text-50 flex items-center gap-3">
+				<Icon is:inline name="material-symbols:hourglass-empty-rounded" class="text-2xl text-(--primary)" />
+				<span>这个准则下还没有公开文章。</span>
+			</div>
+		)}
+	</div>
+</MainGridLayout>

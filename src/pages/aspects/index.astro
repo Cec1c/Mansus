@@ -1,0 +1,30 @@
+---
+import { visibleAspects } from "@/data/aspects";
+import MainGridLayout from "@/layouts/MainGridLayout.astro";
+---
+
+<MainGridLayout title="准则">
+	<section class="mansus-aspect-page card-base p-5 md:p-7">
+		<div class="mansus-section-head">
+			<div>
+				<p class="mansus-kicker">Principles</p>
+				<h2>准则</h2>
+			</div>
+		</div>
+		<div class="mansus-aspect-grid">
+			{visibleAspects.map((aspect) => (
+				<a
+					href={`/aspects/${aspect.id}/`}
+					class="mansus-aspect-panel"
+					style={`--aspect-color: ${aspect.color};`}
+				>
+					<div class="mansus-aspect-panel-title">
+						<img src={aspect.icon} width="48" height="48" alt="" loading="lazy" />
+						<strong>{aspect.zh}</strong>
+					</div>
+					<p>{aspect.meaning}</p>
+				</a>
+			))}
+		</div>
+	</section>
+</MainGridLayout>

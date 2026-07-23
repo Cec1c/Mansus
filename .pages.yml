@@ -1,0 +1,337 @@
+media:
+  - name: uploads
+    label: 文章上传图
+    input: public/assets/uploads
+    output: /assets/uploads
+    categories: [image]
+    extensions: [png, jpg, jpeg, webp, avif]
+    rename: safe
+  - name: mansus_covers
+    label: 漫宿封面素材
+    input: src/assets/images/mansus
+    output: ../../assets/images/mansus
+    categories: [image]
+    extensions: [png, jpg, jpeg, webp, avif]
+    rename: safe
+
+content:
+  - name: posts
+    label: 文章
+    type: collection
+    path: src/content/posts
+    format: yaml-frontmatter
+    subfolders: false
+    filename:
+      template: "{primary}.md"
+      field: create
+    view:
+      fields: [title, published, category, primaryAspect, draft, pinned]
+      primary: title
+      sort: [published, updated, title]
+      search: [title, description, summary, tags, category, keywords]
+      default:
+        sort: published
+        order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+        options:
+          maxlength: 120
+      - name: published
+        label: 发布日期
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: updated
+        label: 更新日期
+        type: date
+        required: false
+        default: ""
+        description: 可留空；只有文章实际更新时再填写。
+        options:
+          format: yyyy-MM-dd
+      - name: description
+        label: 列表摘要 / SEO 描述
+        type: text
+        required: false
+        options:
+          maxlength: 240
+      - name: summary
+        label: 文章顶部概要
+        type: text
+        required: false
+        description: 显示在文章页开头的 Mansus 概要卡片。
+        options:
+          maxlength: 360
+      - name: keywords
+        label: SEO 关键词
+        type: string
+        list: true
+        required: false
+      - name: image
+        label: 封面图
+        type: image
+        required: false
+        options:
+          media: mansus_covers
+          extensions: [png, jpg, jpeg, webp, avif]
+          rename: safe
+      - name: category
+        label: 分类
+        type: string
+        required: false
+        description: 例如：计算机技术、网安技术、哲学思辨、写作说明。
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+        required: false
+      - name: primaryAspect
+        label: 主准则
+        type: select
+        required: false
+        description: 简单墨水模式会让主准则拥有 6 份权重。
+        options:
+          values:
+            - name: lantern
+              label: 灯
+            - name: forge
+              label: 铸
+            - name: edge
+              label: 刃
+            - name: winter
+              label: 冬
+            - name: heart
+              label: 心
+            - name: grail
+              label: 杯
+            - name: moth
+              label: 蛾
+            - name: knock
+              label: 启
+            - name: secretHistories
+              label: 秘史（仅加密文章）
+      - name: aspects
+        label: 相关准则
+        type: select
+        required: false
+        description: 简单墨水模式会把其他准则均等融合为 1 份权重。
+        options:
+          multiple: true
+          values:
+            - name: lantern
+              label: 灯
+            - name: forge
+              label: 铸
+            - name: edge
+              label: 刃
+            - name: winter
+              label: 冬
+            - name: heart
+              label: 心
+            - name: grail
+              label: 杯
+            - name: moth
+              label: 蛾
+            - name: knock
+              label: 启
+            - name: secretHistories
+              label: 秘史（仅加密文章）
+      - name: advancedAspectWeights
+        label: 高级准则点数
+        type: object
+        required: false
+        description: 可选。点击添加后展开填写点数；留空时使用上方主准则 / 相关准则的简单墨水模式。
+        list:
+          min: 0
+          max: 1
+          collapsible:
+            collapsed: true
+            summary: 高级准则点数
+        fields:
+          - name: lantern
+            label: 灯
+            type: number
+            required: false
+            options:
+              min: 0
+          - name: forge
+            label: 铸
+            type: number
+            required: false
+            options:
+              min: 0
+          - name: edge
+            label: 刃
+            type: number
+            required: false
+            options:
+              min: 0
+          - name: winter
+            label: 冬
+            type: number
+            required: false
+            options:
+              min: 0
+          - name: heart
+            label: 心
+            type: number
+            required: false
+            options:
+              min: 0
+          - name: grail
+            label: 杯
+            type: number
+            required: false
+            options:
+              min: 0
+          - name: moth
+            label: 蛾
+            type: number
+            required: false
+            options:
+              min: 0
+          - name: knock
+            label: 启
+            type: number
+            required: false
+            options:
+              min: 0
+          - name: secretHistories
+            label: 秘史（仅加密文章）
+            type: number
+            required: false
+            options:
+              min: 0
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: false
+        required: false
+      - name: pinned
+        label: 置顶
+        type: boolean
+        default: false
+        required: false
+      - name: comment
+        label: 允许评论
+        type: boolean
+        default: true
+        required: false
+      - name: lang
+        label: 语言
+        type: select
+        default: zh_CN
+        required: false
+        options:
+          values:
+            - name: zh_CN
+              label: 简体中文
+            - name: zh_TW
+              label: 繁体中文
+            - name: en
+              label: English
+            - name: ja
+              label: 日本語
+            - name: ru
+              label: Русский
+      - name: author
+        label: 作者
+        type: string
+        required: false
+      - name: sourceLink
+        label: 来源链接
+        type: string
+        required: false
+      - name: licenseName
+        label: 许可名称
+        type: string
+        required: false
+      - name: licenseUrl
+        label: 许可链接
+        type: string
+        required: false
+      - name: password
+        label: 访问密码
+        type: string
+        required: false
+        description: 加密文章必须包含隐藏准则“秘史”；普通文章不得使用秘史。
+      - name: passwordHint
+        label: 密码提示
+        type: string
+        required: false
+      - name: body
+        label: 正文
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: uploads
+          switcher: true
+          rename: safe
+
+  - name: dynamic
+    label: 日常动态
+    type: collection
+    path: src/content/dynamic
+    format: yaml-frontmatter
+    subfolders: false
+    filename:
+      template: "{year}-{month}-{day}-{hour}{minute}{second}.md"
+    view:
+      fields: [published]
+      primary: published
+      sort: [published]
+      default:
+        sort: published
+        order: desc
+    fields:
+      - name: published
+        label: 发布时间
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd HH:mm:ss
+      - name: body
+        label: 动态内容
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: uploads
+          switcher: true
+          rename: safe
+
+  - name: about
+    label: 关于页
+    type: file
+    path: src/content/spec/about.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: false
+      - name: body
+        label: 正文
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          media: uploads
+          switcher: true
+          rename: safe
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: app
+    templates:
+      create: "cms: create {path}"
+      update: "cms: update {path}"
+      delete: "cms: delete {path}"
+      rename: "cms: rename {oldPath} -> {newPath}"

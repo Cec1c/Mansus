@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	entry: CollectionEntry<"posts">;
+}
+
+const { entry } = Astro.props;
+const summary = entry.data.summary || entry.data.description;
+---
+
+<aside class="mansus-article-summary onload-animation" aria-label="Article glimpse">
+	<div class="summary-cell summary-main">
+		<span class="summary-label summary-label-glimpse">GLIMPSE</span>
+		<p>{summary}</p>
+	</div>
+</aside>

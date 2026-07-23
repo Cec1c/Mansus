@@ -1,0 +1,37 @@
+---
+import type { Aspect } from "@/data/aspects";
+
+interface Props {
+	aspect: Aspect;
+	compact?: boolean;
+	href?: string | null;
+}
+
+const {
+	aspect,
+	compact = false,
+	href = `/aspects/${aspect.id}/`,
+} = Astro.props;
+const resolvedHref = aspect.hidden ? null : href;
+---
+
+{
+	resolvedHref ? (
+		<a
+			href={resolvedHref}
+			class:list={["mansus-aspect-badge", compact && "is-compact", aspect.hidden && "is-hidden"]}
+			style={`--aspect-color: ${aspect.color};`}
+		>
+			<img src={aspect.icon} width={compact ? 18 : 22} height={compact ? 18 : 22} alt="" loading="lazy" />
+			<span>{aspect.zh}</span>
+		</a>
+	) : (
+		<span
+			class:list={["mansus-aspect-badge", compact && "is-compact", aspect.hidden && "is-hidden"]}
+			style={`--aspect-color: ${aspect.color};`}
+		>
+			<img src={aspect.icon} width={compact ? 18 : 22} height={compact ? 18 : 22} alt="" loading="lazy" />
+			<span>{aspect.zh}</span>
+		</span>
+	)
+}
