@@ -1,5 +1,6 @@
 ---
 import { fontConfig } from "@/config";
+import { url } from "@/utils/url-utils";
 
 // 获取选中的字体
 const getSelectedFonts = () => {
@@ -71,7 +72,7 @@ const fontFamilyStyle = generateFontFamilyStyle();
           set:html={`
         @font-face {
           font-family: "${font.family}";
-          src: url("${font.src}") ${font.format ? `format("${font.format}")` : ""};
+          src: url("${url(font.src)}") ${font.format ? `format("${font.format}")` : ""};
           ${font.weight ? `font-weight: ${font.weight};` : ""}
           ${font.style ? `font-style: ${font.style};` : ""}
           ${font.display ? `font-display: ${font.display};` : ""}
@@ -93,7 +94,7 @@ const fontFamilyStyle = generateFontFamilyStyle();
       .map((font) => (
         <link
           rel="preload"
-          href={font.src}
+          href={url(font.src)}
           as="font"
           type={`font/${font.format || "woff2"}`}
           crossorigin

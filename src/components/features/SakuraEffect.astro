@@ -213,7 +213,7 @@
 
 			try {
 				this.img = new Image();
-				this.img.src = "/assets/images/effects/sakura.png";
+				this.img.src = `${import.meta.env.BASE_URL}assets/images/effects/sakura.png`;
 
 				await new Promise<void>((resolve, reject) => {
 					if (!this.img) {

@@ -1,6 +1,7 @@
 ---
 import { visibleAspects } from "@/data/aspects";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
+import { url } from "@/utils/url-utils";
 ---
 
 <MainGridLayout title="准则">
@@ -14,12 +15,12 @@ import MainGridLayout from "@/layouts/MainGridLayout.astro";
 		<div class="mansus-aspect-grid">
 			{visibleAspects.map((aspect) => (
 				<a
-					href={`/aspects/${aspect.id}/`}
+					href={url(`/aspects/${aspect.id}/`)}
 					class="mansus-aspect-panel"
 					style={`--aspect-color: ${aspect.color};`}
 				>
 					<div class="mansus-aspect-panel-title">
-						<img src={aspect.icon} width="48" height="48" alt="" loading="lazy" />
+						<img src={url(aspect.icon)} width="48" height="48" alt="" loading="lazy" />
 						<strong>{aspect.zh}</strong>
 					</div>
 					<p>{aspect.meaning}</p>

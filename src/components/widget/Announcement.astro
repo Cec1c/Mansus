@@ -5,6 +5,7 @@ import { announcementConfig } from "@/config/announcementConfig";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import type { WidgetComponentConfig } from "@/types/config";
+import { url } from "@/utils/url-utils";
 
 const config = announcementConfig;
 
@@ -38,7 +39,7 @@ const showTitle = widgetConfig?.showTitle !== false;
         {
           config.link && config.link.enable !== false && (
             <a
-              href={config.link.url}
+              href={config.link.external ? config.link.url : url(config.link.url)}
               target={config.link.external ? "_blank" : "_self"}
               rel={config.link.external ? "noopener noreferrer" : undefined}
               class="btn-regular rounded-lg px-3 py-1.5 text-sm font-medium active:scale-95 transition-transform"

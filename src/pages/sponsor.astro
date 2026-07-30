@@ -10,7 +10,7 @@ import { url } from "@/utils/url-utils";
 
 // 检查页面是否启用
 if (!siteConfig.pages.sponsor) {
-	return Astro.redirect("/404/");
+	return Astro.redirect(url("/404/"));
 }
 
 // 检查评论系统是否启用
@@ -213,4 +213,3 @@ function getQrLqipProps(qrCode: string) {
     gap: 0.75rem;
   }
 </style>
-

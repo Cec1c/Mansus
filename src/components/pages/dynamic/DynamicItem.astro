@@ -83,7 +83,7 @@ const profileLabel = i18n(I18nKey.dynamicProfile).replace(
 		<DynamicGallery sourceId={`${anchorId}-content`} />
 		{showInlineComments && commentPath && (
 			<DynamicInlineComments
-				src={`/dynamic/comments/?path=${encodeURIComponent(commentPath)}`}
+				src={url(`/dynamic/comments/?path=${encodeURIComponent(commentPath)}`)}
 			/>
 		)}
 	</article>

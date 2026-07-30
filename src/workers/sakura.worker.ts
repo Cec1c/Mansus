@@ -194,7 +194,9 @@ class SakuraList {
 // 核心逻辑
 // ---------------------------------------------------------------------------
 async function loadImage(): Promise<ImageBitmap> {
-	const response = await fetch("/assets/images/effects/sakura.png");
+	const response = await fetch(
+		`${import.meta.env.BASE_URL}assets/images/effects/sakura.png`,
+	);
 	if (!response.ok) {
 		throw new Error(
 			`Failed to load sakura image: ${response.status} ${response.statusText}`,

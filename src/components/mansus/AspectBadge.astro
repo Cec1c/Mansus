@@ -1,5 +1,6 @@
 ---
 import type { Aspect } from "@/data/aspects";
+import { url } from "@/utils/url-utils";
 
 interface Props {
 	aspect: Aspect;
@@ -12,7 +13,7 @@ const {
 	compact = false,
 	href = `/aspects/${aspect.id}/`,
 } = Astro.props;
-const resolvedHref = aspect.hidden ? null : href;
+const resolvedHref = aspect.hidden || href === null ? null : url(href);
 ---
 
 {
@@ -22,7 +23,7 @@ const resolvedHref = aspect.hidden ? null : href;
 			class:list={["mansus-aspect-badge", compact && "is-compact", aspect.hidden && "is-hidden"]}
 			style={`--aspect-color: ${aspect.color};`}
 		>
-			<img src={aspect.icon} width={compact ? 18 : 22} height={compact ? 18 : 22} alt="" loading="lazy" />
+			<img src={url(aspect.icon)} width={compact ? 18 : 22} height={compact ? 18 : 22} alt="" loading="lazy" />
 			<span>{aspect.zh}</span>
 		</a>
 	) : (
@@ -30,7 +31,7 @@ const resolvedHref = aspect.hidden ? null : href;
 			class:list={["mansus-aspect-badge", compact && "is-compact", aspect.hidden && "is-hidden"]}
 			style={`--aspect-color: ${aspect.color};`}
 		>
-			<img src={aspect.icon} width={compact ? 18 : 22} height={compact ? 18 : 22} alt="" loading="lazy" />
+			<img src={url(aspect.icon)} width={compact ? 18 : 22} height={compact ? 18 : 22} alt="" loading="lazy" />
 			<span>{aspect.zh}</span>
 		</span>
 	)

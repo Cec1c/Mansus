@@ -5,6 +5,7 @@ import {
 	dynamicSlug,
 	sortDynamics,
 } from "@/utils/dynamic-utils";
+import { url } from "@/utils/url-utils";
 
 const markdownImagePattern = /!\[([^\]]*)\]\((\S+?)(?:\s+["']([^"']*)["'])?\)/g;
 
@@ -17,7 +18,7 @@ export async function GET() {
 			const markdown = (entry.body || "").replace(
 				markdownImagePattern,
 				(_match, alt: string, src: string, title?: string) => {
-					images.push({ alt, src, ...(title ? { title } : {}) });
+					images.push({ alt, src: url(src), ...(title ? { title } : {}) });
 					return "";
 				},
 			);

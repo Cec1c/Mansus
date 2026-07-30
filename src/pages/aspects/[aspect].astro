@@ -6,7 +6,7 @@ import { aspectById, isAspectId, visibleAspects } from "@/data/aspects";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 import { getSortedPosts } from "@/utils/content-utils";
 import { createInk } from "@/utils/ink";
-import { getPostUrlBySlug } from "@/utils/url-utils";
+import { getPostUrlBySlug, url } from "@/utils/url-utils";
 
 export const getStaticPaths = (async () => {
 	return visibleAspects.map((aspect) => ({
@@ -44,7 +44,7 @@ const interval = 50;
 	<section class="mansus-aspect-page card-base p-5 md:p-7" style={aspectInk.style}>
 		<div class="mansus-section-head">
 			<div class="mansus-aspect-detail-title">
-				<img src={aspect.icon} width="52" height="52" alt="" />
+				<img src={url(aspect.icon)} width="52" height="52" alt="" />
 				<h2>{aspect.zh}</h2>
 			</div>
 		</div>

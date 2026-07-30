@@ -181,7 +181,7 @@ function createItem(entry: DynamicData) {
 	const comments = root.querySelector<HTMLElement>("dynamic-inline-comments");
 	if (comments) {
 		if (showComments) {
-			comments.dataset.src = `/dynamic/comments/?path=${encodeURIComponent(
+			comments.dataset.src = `${import.meta.env.BASE_URL}dynamic/comments/?path=${encodeURIComponent(
 				`/dynamic/${entry.id}/`,
 			)}`;
 		} else {

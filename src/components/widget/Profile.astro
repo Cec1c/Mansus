@@ -71,7 +71,7 @@ import { url } from "@/utils/url-utils";
                             {showName && item.name}
                         </a>
                     } else {
-                        return <a rel="me" aria-label={item.name} href={item.url} target="_blank" class={className}>
+                        return <a rel="me" aria-label={item.name} href={url(item.url)} target="_blank" class={className}>
                             <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
                             {showName && item.name}
                         </a>
@@ -98,7 +98,7 @@ import { url } from "@/utils/url-utils";
                             {item.name}
                         </a>
                     } else {
-                        return <a rel="me" aria-label={item.name} href={item.url} target="_blank"
+                        return <a rel="me" aria-label={item.name} href={url(item.url)} target="_blank"
                                             class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
                                 <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
                                 {item.name}

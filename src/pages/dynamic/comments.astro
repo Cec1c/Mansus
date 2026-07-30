@@ -9,7 +9,7 @@ if (
 	!commentConfig.type ||
 	commentConfig.type === "none"
 ) {
-	return Astro.redirect("/404/");
+	return Astro.redirect(`${import.meta.env.BASE_URL}404/`);
 }
 ---
 

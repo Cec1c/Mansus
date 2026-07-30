@@ -10,7 +10,7 @@ import MainGridLayout from "@/layouts/MainGridLayout.astro";
 
 // 检查页面是否启用
 if (!siteConfig.pages.guestbook) {
-	return Astro.redirect("/404/");
+	return Astro.redirect(`${import.meta.env.BASE_URL}404/`);
 }
 
 const guestbookPost = await getEntry("spec", "guestbook");

@@ -5,6 +5,7 @@
 [![框架](https://img.shields.io/badge/%E6%A1%86%E6%9E%B6-Astro-BC52EE?style=flat-square&logo=astro&logoColor=white)](https://astro.build/)
 [![包管理器](https://img.shields.io/badge/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8-pnpm-F69220?style=flat-square&logo=pnpm&logoColor=white)](https://pnpm.io/)
 [![部署](https://img.shields.io/badge/%E9%83%A8%E7%BD%B2-GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white)](#快速部署)
+[![使用模板](https://img.shields.io/badge/%E4%BD%BF%E7%94%A8-Template-2EA44F?style=flat-square&logo=github&logoColor=white)](https://github.com/new?template_name=Mansus&template_owner=Cec1c)
 [![许可](https://img.shields.io/badge/%E8%AE%B8%E5%8F%AF-MIT-2563EB?style=flat-square)](LICENSE)
 
 一个基于 Firefly 二次开发的 Astro 博客模板，保留准则分类、文章墨水混色、RSS、全文搜索和响应式布局。
@@ -17,7 +18,7 @@
 
 - **让文章拥有自己的颜色。** 选择单个或多个准则，由墨水系统生成文章主题色。
 - **让内容保持简单可维护。** 使用 Markdown 写作，文章、图片和站点配置都有明确目录。
-- **让个人博客快速上线。** Fork 后可通过 GitHub Actions 自动构建并部署到 GitHub Pages。
+- **让个人博客快速上线。** 从模板创建仓库后，可通过 GitHub Actions 自动构建并部署到 GitHub Pages。
 
 ## 页面预览
 
@@ -56,10 +57,13 @@
 
 ### GitHub Pages
 
-1. Fork 仓库。
-2. 打开仓库的 `Settings > Pages`。
-3. 将 Source 设为 `GitHub Actions`。
-4. 在 `Actions` 中运行一次 `Deploy to GitHub Pages`。
+1. 点击 [Use this template](https://github.com/new?template_name=Mansus&template_owner=Cec1c) 创建一个公开仓库，不要使用 Fork。
+2. 仓库名使用 `<用户名>.github.io` 时会部署到根路径；使用其他名称时会部署到 `/<仓库名>/`。
+3. 打开新仓库的 `Settings > Pages`，将 Source 设为 `GitHub Actions`。
+4. 如果 `Actions` 页面要求确认，先点击 `I understand my workflows, go ahead and enable them`。
+5. 在 `Actions` 中运行一次 `Deploy to GitHub Pages`。
+
+GitHub 出于权限安全不会允许公共模板使用默认 `GITHUB_TOKEN` 自动开启 Pages，因此第 3 步是首次创建时唯一需要手动完成的设置。若第一次部署在 `Configure Pages` 处提示 Pages 尚未启用，完成第 3 步后重新运行即可。
 
 以后推送到 `main` 或 `master` 会自动更新站点。默认地址会自动适配为：
 

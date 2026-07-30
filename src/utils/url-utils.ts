@@ -73,15 +73,20 @@ export function getSearchUrl(query: string): string {
 }
 
 export function url(path: string): string {
-	// 关键修复：如果是网络URL，直接返回原地址
+	// 协议链接、协议相对链接和页内锚点不属于站点内部路径。
 	if (
-		path.startsWith("http://") ||
-		path.startsWith("https://") ||
-		path.startsWith("//")
+		/^[a-z][a-z\d+.-]*:/i.test(path) ||
+		path.startsWith("//") ||
+		path.startsWith("#")
 	) {
 		return path;
 	}
 
-	// 只有本地相对路径才添加BASE_URL
-	return joinUrl("", import.meta.env.BASE_URL, path);
+	const base = import.meta.env.BASE_URL || "/";
+	if (base !== "/" && (path === base.slice(0, -1) || path.startsWith(base))) {
+		return path;
+	}
+
+	// 只有站点内部路径才添加 BASE_URL。
+	return joinUrl("", base, path);
 }

@@ -130,7 +130,7 @@ function serializeMenus(menus: Props["config"]["menus"]) {
 	// 菜单动作映射
 	let currentModelIndex = 0;
 	const menuActions: Record<string, (widget: any) => void> = {
-		home: () => (window.location.href = "/"),
+		home: () => (window.location.href = import.meta.env.BASE_URL),
 		scrollToTop: () => window.scrollTo({ top: 0, behavior: "smooth" }),
 		sleep: (widget) => widget.sleep(),
 		github: () =>

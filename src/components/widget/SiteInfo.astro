@@ -80,8 +80,9 @@ const archName = archMap[process.arch] || process.arch;
 const systemInfo = `${osName} / ${archName}`;
 
 // 站点域名（去掉协议前缀）
-const siteDomain = siteConfig.site_url
-	? siteConfig.site_url.replace(/^https?:\/\//, "").replace(/\/$/, "")
+const resolvedSiteUrl = Astro.site?.href || siteConfig.site_url;
+const siteDomain = resolvedSiteUrl
+	? resolvedSiteUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")
 	: "unknown";
 
 // 文章许可
